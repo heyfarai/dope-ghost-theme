@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{@site.locale}}">
+<html class="dark" lang="{{@site.locale}}">
 <head>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{asset "built/style.css"}}" />
     <link rel="stylesheet" href="{{asset "built/index.css"}}" />
     <script src="{{asset "built/index.js"}}" defer></script>
 
@@ -13,67 +14,50 @@
     {{!-- Outputs important meta data and settings, should always be in <head> --}}
 
 </head>
-<body class="{{body_class}}">
-<div class="gh-viewport">
+<body class='{{body_class}}{{{block "body_class"}}} bg-gray-950 text-slate-100'>
+  <div id="the-beginning" class="grid-cols-errythang grid p-5 sm:pt-[50px] sm:px-[50px] justify-between relative my-0 mx-auto max-w-[500px] sm:max-w-[none] lg:grid-cols-errythang-lg md:grid-cols-errythang-mid mb-[5vw]">
+      {{> nav--main }}
+      {{{body}}}
+      <section 
+        id="get-in-touch" 
+        class="grid [grid-template-areas:'header_header''content_content'] md:[grid-template-areas:'header_header''._content'] grid-cols-1 md:grid-cols-[1fr_minmax(500px,_700px)] col-start-1 col-end-4 sm:col-start-2 sm:col-end-4 md:col-start-2 md:col-end-3 mb-[5vh] mt-[6.5vh]
+        ">
+        <h2 class="col-start-1 col-end-3">Peace!</h2>
+        <div class="section-content">
+          <p>Get in touch to chat about coaching for you or your team. If you're organising an event, let's chat about a talk or a workshop.</p>
+          <ul class="no-bullet">
+            <li>
+              <strong>Email me:</strong> farai {at} hey.com
+            </li><li>
+              <strong>LinkedIn:</strong>
+              <a href="https://www.linkedin.com/in/farai/">https://www.linkedin.com/in/farai/</a>
+            </li>
+            <li>
+              <strong>Twitter:</strong>
+              <a href="https://twitter.com/heyfarai">@heyfarai</a>
+            </li> 
+          </ul> 
+        </div> 
+      </section>
+  </div>
 
-<header id="gh-head" class="gh-head">
-    <nav class="gh-head-inner gh-container">
-
-        <div class="gh-head-brand">
-            <a class="gh-head-logo" href="{{@site.url}}">
-                {{#if @site.logo}}
-                    <img src="{{@site.logo}}" alt="{{@site.title}}" />
-                {{else}}
-                    {{@site.title}}
-                {{/if}}
-            </a>
-            <a class="gh-burger" role="button" aria-label="menu">
-                <div class="gh-burger-box">
-                    <div class="gh-burger-inner"></div>
-                </div>
-            </a>
-        </div>
-        <div class="gh-head-menu">
-            {{navigation}}
-        </div>
-        <div class="gh-head-actions">
-            <div class="gh-head-actions-list">
-                {{search}}
-                {{#if @site.members_enabled}}
-                    {{^if @member}}
-                    <a class="gh-button" href="{{@site.signup_url}}">Subscribe</a>
-                    {{else}}
-                    <a class="gh-button" href="#/portal/account">Account</a>
-                    {{/if}}
-                {{/if}}
-            </div>
-        </div>
-    </nav>
-</header>
-
-<main class="gh-main">
-
-    {{{body}}}
-    {{!-- All content gets inserted here, index.hbs, post.hbs, etc --}}
-
-</main>
-
-<footer class="gh-foot">
-    <div class="gh-container">
-        <div class="gh-foot-menu">
-            {{navigation type="secondary"}}
-        </div>
-        <div class="gh-foot-meta">
-            Published with <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
-        </div>
+    <div class="footer">
+      <p>&copy; 2017 — 2023 Farai Madzima.</p>
+      
     </div>
-</footer>
+    <script type="application/ld+json">
+      {
+        "@context" : "http://schema.org",
+        "@type" : "Person",
+        "name" : "{{ meta.authorFullName }}",
+        "url" : "https://{{ meta.siteDomain }}",
+        "homeLocation": "Ottawa, Canada",
+        "sameAs" : [
+          "https://twitter.com/{{ meta.twitterHandle }}",
+          "{{ meta.linkedinUrl }}"
+        ]
+      }
 
-</div>
-
-{{!-- <foot> --}}
 {{ghost_foot}}
-{{!-- Outputs important scripts - should always be included before closing body tag --}}
-
 </body>
 </html>
